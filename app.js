@@ -7,24 +7,8 @@ var bodyParser = require('body-parser');
 var session = require('express-session')
 var uuid = require('node-uuid');
 
-var Promise = require("bluebird");
-
 var RedisStore = require('connect-redis')(session);
-var redis = require("redis");
-
-var client = redis.createClient({
-    host : '192.168.0.83',
-    port : '6379',
-    password : 'abc123'
-});
-client.auth('abc123');
-
-client.on('error', function (err) {
-    console.log(err);
-});
-client.on('connect', function() {
-    console.log('connected');
-});
+var client = require('./deps/redis.js');
 
 var routes = require('./controllers/home');
 var users = require('./controllers/users');
@@ -34,8 +18,6 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-
-// uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -50,6 +32,7 @@ app.use(session({
         client : client
     })
 }));
+
 app.use(function (req, res, next) {
     req.redis = client;
     next();
