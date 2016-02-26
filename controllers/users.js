@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var validator = require('node-validator');
 
 var Promise = require("bluebird");
 var bcrypt = Promise.promisifyAll(require("bcrypt"));
