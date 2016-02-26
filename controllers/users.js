@@ -15,17 +15,24 @@ router.put("/", function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-  var params = req.body;
+  req.checkAndSanitize('username');
+  req.checkAndSanitize('password');
+  req.checkAndSanitize('display_name');
+
+  var errors = req.validationErrors();
 
   var redis = req.redis; //grab the client from the request that was added in via a middleware
   var redisPasswordKey = req.body.username + '-password'; //compute storage keys
   var redisDisplayNameKey = req.body.display_name + '-displayname';
 
   new Promise(function(resolve, reject){
-  //Promise.try(function () {
+    if (errors) {
+      reject(errors);
+    }
+
     redis.get(redisPasswordKey, function (err, reply) {
       if (reply) {
-        reject("Account already exists")
+        reject({error : "Account already exists" });
       } else {
         resolve(reply);
       }
@@ -50,8 +57,7 @@ router.post('/', function (req, res, next) {
       display_name: req.body.display_name
     });
   }).catch(function (err) {
-    console.log(err);
-    res.status(500).json({error: err});
+    res.status(500).json(err);
   });
 });
 
