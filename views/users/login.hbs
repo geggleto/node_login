@@ -1,7 +1,13 @@
+<script type="application/javascript" src="/javascripts/users/login.js" defer="defer"></script>
+
+<div class="alert alert-warning" role="alert" id="alert">
+
+</div>
+
 <div class="panel panel-default">
     <div class="panel-heading">VMS Authentication</div>
     <div class="panel-body">
-        <form class="form-horizontal" action="/auth" method="post">
+        <form class="form-horizontal">
             <div class="form-group">
                 <label for="username" class="col-sm-2 control-label">Username/PEIN</label>
 
@@ -29,7 +35,7 @@
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" name="sign-in" class="btn btn-default">
+                    <button type="button" name="sign-in" id="signin" class="btn btn-default">
                         Sign in
                     </button>
                 </div>
