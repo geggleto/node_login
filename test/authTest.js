@@ -5,7 +5,6 @@ var supertest = require("supertest");
 var assert = require("assert");
 
 // This agent refers to PORT where program is runninng.
-
 var server = supertest.agent("http://localhost:3000");
 
 // UNIT test begin
@@ -16,7 +15,7 @@ describe("Auth Unit Test",function(){
     it("should return status code 200",function(done){
         var login = {
             username : "Glenn",
-            password : "abc"
+            password : "miller"
         };
 
         // calling home page api
