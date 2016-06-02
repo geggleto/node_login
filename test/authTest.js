@@ -15,7 +15,7 @@ describe("Auth Unit Test",function(){
     it("should return status code 200",function(done){
         var login = {
             username : "Glenn",
-            password : "miller"
+            password : "zzzzz"
         };
 
         // calling home page api
